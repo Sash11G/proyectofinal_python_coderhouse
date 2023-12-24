@@ -1,0 +1,130 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block contenido1 %}
+    <!-- cliente/blogpost_update.html -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .blogpost-update {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #0b7474; /* Medium Aquamarine Green for title */
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 40px; /* Adjust the font size as needed */
+            font-weight: bold;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            
+        }
+
+        form:not(.blogpost-form) {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #555;
+        }
+
+        select {
+            color: #555;
+        }
+
+        input[type="submit"] {
+            background-color: #555;
+            color: white;
+            cursor: pointer;
+            width: 70%; /* Adjust as needed */
+            padding: 14px; /* Adjust as needed */
+            margin-bottom: 8px; /* Adjust as needed */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #333;
+        }
+
+        .delete-post-button {
+            background-color: #ff0000; /* Red color for delete button */
+            color: white;
+            cursor: pointer;
+            width: 28%; /* Adjust as needed */
+            padding: 13px; /* Adjust as needed */
+            margin-bottom: 8px;
+        }
+
+        .delete-post-button:hover {
+            background-color: #cc0000; /* Darker red on hover */
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #0b7474; /* Medium Aquamarine Green for link */
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+    
+    
+    <body>
+        <div class="blogpost-update">
+            <h1>Edit Blog Post</h1>
+            <div class="form-container">
+                <!-- Update/Delete Post Form -->
+                <form method="post" action="{% url 'cliente:blogpost-update' pk=blog_post.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" name="action" value="Update Post" class="update-post-button">
+                    
+                    <!-- Delete Post Button with name attribute -->
+                    <button type="submit" name="action" value="Delete Post" class="delete-post-button">Delete Post</button>
+                </form>
+            </div>
+        
+            <a href="{% url 'cliente:blogpost-list' %}" class="back-link">Back to Blog Post List</a>
+        </div>
+    </body>
+{% endblock contenido1 %}
+
+{% block contenido2 %}
+
+{% endblock contenido2 %}

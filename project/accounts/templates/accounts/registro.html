@@ -1,0 +1,89 @@
+{% extends 'core/index.html' %}
+
+{% block contenido1 %}
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            body {
+
+                color: #000000; /* White text */
+
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+
+            h2 {
+                color: #008080; /* Medium Aquamarine Green for title */
+                text-align: center;
+                margin-bottom: 20px;
+                font-size: 24px; /* Adjust the font size as needed */
+            }
+
+            form {
+                width: 300px;
+                padding: 20px;
+                border: 1px solid #006666; /* Darker Aquamarine Green border */
+                border-radius: 8px;
+                margin: 20px auto;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle box shadow */
+            }
+
+            input[type="submit"] {
+                background-color: #008080; /* Medium Aquamarine Green */
+                color: #fff; /* White text */
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 100%;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #006666; /* Darker Aquamarine Green on hover */
+            }
+
+            .error-list {
+                color: red;
+            }
+
+        </style>
+    </head>
+
+    <body>
+    <form action="/accounts/registro" method="POST">
+    {% csrf_token %}
+    <h2>Sign Up</h2>
+
+    {% for field in form %}
+        <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+
+            {% if field.errors %}
+                <ul class="error-list">
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </p>
+    {% endfor %}
+
+    <input type="submit" value="Log in">
+    </form>
+    </body>
+
+{% endblock contenido1 %}
+
+{% block contenido2 %}
+    
+{% endblock contenido2 %}
+

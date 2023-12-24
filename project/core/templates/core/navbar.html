@@ -1,0 +1,83 @@
+{% load static %}
+<style>
+    .nav-link {
+        display: block;
+        padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+        font-size: var(--bs-nav-link-font-size);
+        font-weight: var(--bs-nav-link-font-weight);
+        color: var(--bs-nav-link-color);
+        text-decoration: none;
+        transition: none;
+        cursor: pointer;
+        box-sizing: border-box;
+    }
+
+
+
+    .nav-logout-btn {
+        background: none;
+        border: none;
+        padding: 0;
+        color: rgba(255, 255, 255, 0.55);
+        cursor: pointer;
+        text-decoration: none; /* Optional: Add underline to mimic link behavior */
+    }
+
+    .nav-logout-btn:hover {
+        text-decoration: none; /* Optional: Remove underline on hover */
+        color: rgba(255, 255, 255, 0.75);
+    }
+</style>
+
+<!-- Responsive navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'core:index' %}">
+            <img src="{% static '\core\img\wellnesslogo.png' %}" alt="Wellness Haven Logo" style="width: 200px; height: auto;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'core:index' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'cliente:blogpost-list' %}">Blog</a></li>
+                {% if user.is_authenticated %}
+
+                    <li class="nav-item"><a class="nav-link" href="{% url 'cliente:blogpost-create' %}">Create</a></li> 
+                {% endif %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
+                
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:logout' %}">
+                            <form class="blogpost-form" method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="nav-logout-btn">Logout</button>
+                            </form>
+                        </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:view-profile' username=user.username %}">{{ user.username }}</a></li>
+                    
+                    {% if user_avatar %}
+
+                        <a href="{% url 'accounts:view-profile' username=user.username %}" class="nav-link">
+                            <img src="{{ user_avatar.imagen.url }}" alt="User Avatar" style="margin-left: 10px; height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle;">
+
+                        </a>
+                    {% else %}
+                        <a href="{% url 'accounts:view-profile' username=user.username %}" class="nav-link">
+                            <img src="{% static 'core/img/default_user.jpg' %}" alt="User Avatar" style="margin-left: 10px; height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle;">
+
+                        </a>
+                        
+                {% endif %}
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:registro' %}">Sign Up</a></li>
+                    
+                {% endif %}
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+

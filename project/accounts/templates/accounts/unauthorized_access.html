@@ -1,0 +1,32 @@
+{% extends 'core/index.html' %}
+
+{% block contenido1 %}
+    <style>
+        /* Style for the box */
+        .message-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin: 50px auto;
+            max-width: 500px;
+        }
+
+        h2 {
+            color: #008080;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+    </style>
+
+    <!-- Message Box -->
+    <div class="message-box">
+        <h2 style="color: red;">UNAUTHORIZED ACCESS: <br>LOGIN AS ADMIN TO ACCESS</h2>
+    </div>
+{% endblock contenido1 %}
+
+{% block contenido2 %}
+    <!-- Your additional content goes here, if any -->
+{% endblock contenido2 %}

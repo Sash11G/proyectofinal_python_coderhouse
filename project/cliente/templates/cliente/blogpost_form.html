@@ -1,0 +1,131 @@
+{% extends 'core/index.html' %}
+
+{% block contenido1 %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Blog Post</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+    
+        form:not(.blogpost-form) {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+    
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #555;
+        }
+    
+        select {
+            color: #555;
+        }
+    
+        input[type="submit"] {
+            background-color: #555;
+            color: white;
+            cursor: pointer;
+        }
+    
+        input[type="submit"]:hover {
+            background-color: #333;
+        }
+    
+        header {
+            background-color: #555;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+    
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        h2 {
+            color: #555;
+        }
+    
+        p {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        h2 {
+            color: #0b7474; /* Medium Aquamarine Green for title */
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 40px; /* Adjust the font size as needed */
+            font-weight: bold;
+            
+        }
+    
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+    
+        li {
+            margin-bottom: 10px;
+        }
+    
+        footer {
+            text-align: center;
+            padding: 1em;
+            background-color: #555;
+            color: white;
+        }
+    </style>
+    
+</head>
+
+<body>
+    
+    
+    <form method="post" action="{% url 'cliente:blogpost-create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>CREATE POST</h2>
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>
+{% endblock contenido1 %}
+
+{% block contenido2 %}
+
+{% endblock contenido2 %}

@@ -1,0 +1,228 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+
+{% block contenido1 %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .blogpost-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .message-box {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            margin: 100px auto; /* Center horizontally */
+        }
+
+        .message-text {
+            font-size: 30px;
+            color: #888;
+            margin: 0;
+        }
+
+        .blog-post-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease;
+            position: relative;
+        }
+
+        .blog-post-container:hover {
+            background-color: #e0e0e0; /* Change the background color on hover */
+        }
+
+        .blog-post-link:hover,
+        .blog-post-link:hover h2.post-title,
+        .blog-post-link:hover p.post-content {
+            text-decoration: none;
+            color: #333; /* Change the text color when not hovered */
+        }
+
+        .author-name {
+            display: inline-block; 
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover; 
+            vertical-align: middle; 
+            border: 1px solid black; 
+            display: inline-block; 
+            margin: 10px 0 10px 10px;
+        }
+
+
+        .edit-post-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #3498db; /* You can adjust the color as needed */
+            text-decoration: none;
+        }
+
+        .edit-post-button img {
+            max-width: 20px; /* Adjust the size of the image as needed */
+            max-height: 20px;
+            vertical-align: middle;
+        }
+
+        .edit-post-button span {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            bottom: 100%; /* Adjust the positioning */
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .edit-post-button:hover span {
+            display: block;
+        }
+
+        .post-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 20px 0;
+        }
+        
+        .post-subtitle {
+            font-size: 18px;
+
+            margin: 10px 20px 0;
+        }
+
+
+        .post-content {
+            margin: 10px 20px;
+            color: rgba(169, 169, 169, 0.9);
+            word-wrap: break-word;
+        }
+        .read-more-label {
+            display: block;
+            margin: 10px 20px 0;; 
+            color: #800080; /* Dark Purple */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease; /* Add a smooth transition effect for color */
+        }
+   
+
+        .read-more-label:hover {
+            color: #B8860B; /* Dark Goldenrod - Adjust the color as needed */
+            text-decoration: none;
+        }
+
+        .post-meta {
+            color: #888;
+            margin: 0 20px 10px;
+        }
+
+        .no-author {
+            font-style: italic;
+        }
+
+        .post-image {
+            max-width: 100%; /* Ensure the image doesn't exceed its container's width */
+            height: auto;   /* Maintain the image's aspect ratio */
+            object-fit: cover;
+        }
+    </style>
+    <body>
+        {% if blog_posts_with_avatars %}
+        <ul class="blogpost-list">
+            {% for post, avatar_info in blog_posts_with_avatars %}
+                <li class="blog-post-container">
+                    <div class="author-info">
+                        {% if avatar_info %}
+                            <a href="{% url 'accounts:view-profile' username=post.autor %}" class="nav-link">
+                                <div class="avatar-container">
+                                    <img src="{{ avatar_info.imagen.url }}" alt="User Avatar" class="author-avatar">
+                                    <p class="author-name">{{ post.autor }}</p>
+                                </div>
+                            </a>
+                        {% else %}
+                            <div class="avatar-container">
+                                <img src="{% static 'core/img/default_user.jpg' %}" alt="Default User Avatar" class="author-avatar">
+                                <p class="author-name">{{ post.autor }}</p>
+                            </div>
+                        {% endif %}
+                        
+                        {% if user.is_authenticated %}
+                            {% if user.is_superuser or post.autor == user %}
+                                <a href="{% url 'cliente:blogpost-update' post.id %}" class="edit-post-link">
+                                    <button class="edit-post-button">
+                                        <img src="{% static 'core/img/edit_icon.png' %}" alt="Edit Icon">
+                                        <span>Edit Post</span>
+                                    </button>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'cliente:blogpost-detail' pk=post.pk %}" class="blog-post-link">
+                        <div class="blog-post-content">
+                            {% if post.post_image %}
+                                <img src="{{ post.post_image.url }}" alt="Blog Post Image" class="post-image">
+                            {% else %}
+                                <p class="no-picture">No picture available</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                
+                    <div class="blog-post-details">
+                        <h2 class="post-title">{{ post.titulo }}</h2>
+                        <h4 class="post-subtitle">{{ post.subtitulo }}</h4>
+                        
+                        <p class="post-content">{{ post.contenido|truncatechars:100 }}</p>
+                        <a href="{% url 'cliente:blogpost-detail' pk=post.pk %}" class="read-more-label">Read More</a>
+                        <p class="post-meta">{{ post.fecha }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <div class="message-box">
+                <p class="message-text">No blog posts available.</p>
+            </div>
+        {% endif %}
+    </body>
+
+{% endblock contenido1 %}
+
+{% block contenido2 %}
+
+{% endblock contenido2 %}
+
+
+

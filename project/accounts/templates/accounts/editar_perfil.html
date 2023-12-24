@@ -1,0 +1,206 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+
+{% block contenido1 %}
+    <style>
+        body {
+            color: #000000;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .profile-edit-container {
+            text-align: center;
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 80%; /* Adjust the width as needed */
+            margin: auto;
+        }
+
+        h2 {
+            color: #008080;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+        }
+        
+        .avatar-section {
+            margin: 0 auto; /* Center the avatar section horizontally */
+            max-width: 400px; /* Set a maximum width if needed */
+        }
+
+        form:not(.blogpost-form) {
+            width: 100%; /* Full width */
+            max-width: 600px; /* Limit maximum width */
+            padding: 20px;
+            border: 1px solid #006666;
+            border-radius: 8px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #008080;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        /* Style for entry boxes */
+        table {
+            width: 100%;
+            text-align: left;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+
+            box-sizing: border-box;
+        }
+
+        .button-container {
+            display: flex;
+        }
+
+        input[type="submit"],
+        .cancel-button {
+            flex: 1; /* Equal width for both buttons */
+            margin-right: 10px; /* Adjust the margin as needed */
+        }
+
+        input[type="submit"] {
+            background-color: #008080;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #006666;
+        }
+
+        .cancel-button {
+            background-color: #ccc;
+            color: #000;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cancel-button:hover {
+            background-color: #aaa;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            text-align: left;
+        }
+    </style>
+
+    <div class="profile-edit-container">
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>Edit Profile</h2>
+            <div class="form-section avatar-section">
+                {% if avatar %}
+                    <img src="{{ avatar.imagen.url }}" alt="User Avatar"
+                         style="height: 200px; width: 200px; border-radius: 50%; object-fit: cover; vertical-align: middle; border: 2px solid black; display: inline-block; margin: 10px 0 10px 10px;">
+                {% else %}
+                    <img src="{% static 'core/img/default_user.jpg' %}" alt="User Avatar"
+                         style="height: 200px; width: 200px; border-radius: 50%; object-fit: cover; vertical-align: middle; border: 2px solid black; display: inline-block; margin: 10px 0 10px 10px;">
+                {% endif %}
+                {{ avatar_form.as_p }}
+            </div>
+            <!-- Delete Avatar Checkbox -->
+            <label for="{{ profile_form.delete_avatar.id_for_label }}" class="delete-avatar-label">Delete Avatar</label>
+            {{ profile_form.delete_avatar }}
+
+            <!-- Profile Section -->
+            <div class="form-section">
+                <h3>Profile Information</h3>
+                <table>
+                    {% for field in profile_form %}
+                    {% if field.name != "delete_avatar" %}
+                        <tr>
+                            <td colspan="2">
+                                <strong>{{ field.label_tag }}</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ field }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </table>
+            </div>
+            <!-- Bio Section -->
+            <div class="form-section">
+                <h3>Bio Information</h3>
+                <table>
+                    {% for field in bio_form %}
+                        <tr>
+                            <td colspan="2">
+                                <strong>{{ field.label_tag }}</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ field }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <!-- Password Section -->
+            <div class="form-section">
+                <h3>Password Change</h3>
+                <table>
+                    {% for field in password_form %}
+                        <tr>
+                            <td colspan="2">
+                                <strong>{{ field.label_tag }}</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ field }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                {% if password_form.new_password1.errors %}
+                    <div class="error-message">
+                        <!-- Customize or remove this message -->
+                        {{ password_form.new_password1.errors.0 }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="button-container">
+                <input type="submit" value="Save Changes"></input>
+                <a href="{% url 'accounts:view-profile' username=user %}" class="cancel-button">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock contenido1 %}
+
+{% block contenido2 %}
+    <!-- Additional content for contenido2 if needed -->
+{% endblock contenido2 %}

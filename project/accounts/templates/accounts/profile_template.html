@@ -1,0 +1,117 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block contenido1 %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .profile-container {
+        position: relative;
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .avatar-img {
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #008080;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        color: #008080;
+        margin: 0;
+        font-size: 28px;
+    }
+
+    p {
+        margin: 5px 0;
+        color: #555;
+    }
+
+    .bio {
+        margin-top: 10px;
+    }
+
+    .edit-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .edit-icon a {
+        position: relative;
+        color: #3498db;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .edit-icon img {
+        max-width: 20px; /* Adjust the size of the image as needed */
+        max-height: 20px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .edit-icon span {
+        display: none;
+        position: absolute;
+        background-color: #333;
+        color: #fff;
+        padding: 5px;
+        border-radius: 5px;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+
+    .edit-icon:hover span {
+        display: block;
+    }
+</style>
+
+<div class="profile-container">
+    <div class="profile-header">
+
+
+        {% if user.is_superuser or user == user_profile.user %}
+        <a href="{% url 'accounts:editar-perfil' username=user_profile.user.username %}" class="edit-icon">
+            <button class="edit-post-button-detail">
+                <img src="{% static 'core/img/edit_icon.png' %}" alt="Edit Icon">
+                <span>Edit Post</span>
+            </button>
+        </a>
+        {% endif %}
+        {% if avatar %}
+            <img src="{{ avatar.imagen.url }}" alt="User Avatar" class="avatar-img">
+        {% else %}
+            <img src="{% static 'core/img/default_user.jpg' %}" alt="User Avatar" class="avatar-img">
+        {% endif %}
+        <h2>{{ user_profile.user.username }}</h2>
+        <p>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</p>
+        <p class="bio">{{ user_profile.bio }}</p>
+    </div>
+</div>
+{% endblock contenido1 %}
+
+{% block contenido2 %}
+    
+{% endblock contenido2 %}

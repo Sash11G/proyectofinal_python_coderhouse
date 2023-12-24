@@ -1,0 +1,19 @@
+{% load static %}
+
+<div class="col">
+    <div class="card" style="width: 200px; height: 300px; margin-bottom: 20px;">
+        {% if thumbnail_url %}
+            <img src="{{ thumbnail_url }}" class="card-img-top" alt="Image Alt Text">
+        {% else %}
+            <img src="{% static 'core/img/wave2.jpg' %}" class="card-img-top" alt="Image Alt Text">
+        {% endif %}
+        
+        <div class="card-body">
+            <h5 class="card-title">
+                {% if titulo|length > 40 %}{{ titulo|slice:":40" }}...{% else %}{{ titulo }}{% endif %}
+            </h5>
+            <p class="card-text">{{ contenido }}</p>
+            <a href="{{ video_link }}" target="_blank" class="btn btn-primary" style="position: absolute; bottom: 15px; left: 20px;">Watch Video</a>
+        </div>
+    </div>
+</div>

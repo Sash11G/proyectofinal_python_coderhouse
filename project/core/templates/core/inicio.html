@@ -1,0 +1,122 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+
+
+{% block contenido1 %}
+
+    <style>
+            header {
+            position: relative;
+        }
+
+        .video-container {
+            position: relative;
+            height: 80vh; /* Adjust the height as needed */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .text-container {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0); /* Optional: Add a semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            object-fit: cover;
+        }
+
+        .position-absolute {
+            position: absolute;
+        }
+
+        .top-50 {
+            top: 50%;
+        }
+
+        .start-50 {
+            left: 50%;
+        }
+
+        .translate-middle {
+            transform: translate(-50%, -50%);
+        }
+
+        body {
+            font-size: 18px;
+        }
+    </style>
+
+
+    <header>
+        <div class="video-container">
+            <video autoplay muted loop id="myVideo">
+                <source src="{% static 'core/img/waves_video.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            
+            <div class="text-container">
+                <img class="img-fluid rounded-circle mb-4" src="{% static 'core/img/wellness_inicio.png' %}" alt="Profile Picture" width="600" height="">
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Content section-->
+
+    {{ message }}
+
+    <section class="py-4">
+        <div class="container my-1">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    
+                    <h2>Bienvenidos</h2>
+                    <body>
+
+                        <p>Bienvenidos a nuestro sitio web de bienestar, un espacio dedicado a la salud y el equilibrio personal. En este blog, los usuarios pueden registrarse, iniciar sesión y compartir contenido relacionado con el bienestar físico y mental.</p>
+                    
+                        <p>La plataforma permite a los usuarios publicar en sus perfiles individuales y en un feed general accesible para todos. Todo el contenido se almacena de manera segura en una base de datos, garantizando la privacidad y la integridad de la información.</p>
+                    
+                        <p>Este sitio es el resultado de un proyecto para el curso de Python en CoderHouse.</p>
+                    
+                        <p><strong>¡Explora, comparte y sé parte de esta comunidad dedicada a una vida saludable!</strong></p>
+                    
+                    </body>
+            </div>
+        </div>
+    </section>
+            
+
+
+{% endblock contenido1 %}
+    
+
+
+{% block contenido2 %}
+
+<div class="container mt-5">
+    <div class="row">
+        {% include 'core/cards.html' with titulo="MEDITATION <br>TOP 6 BENEFITS" video_link="https://www.youtube.com/watch?v=gvJLmVYVvVM&list=PLVPLMzAOaPgXoIfZjsE-9WN_4hFpRMn10&index=2&t=4s" thumbnail_url="https://i.ytimg.com/vi/gvJLmVYVvVM/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBLn4XDjM1HE1A6amgX2hUQcywhlA"%}
+        {% include 'core/cards.html' with titulo="FASTING:<br>Benefits of 1-3 Day Fasts" video_link="https://www.youtube.com/watch?v=6UShUs1Wb_k&list=PLVPLMzAOaPgXoIfZjsE-9WN_4hFpRMn10&index=11" thumbnail_url="https://i.ytimg.com/vi/6UShUs1Wb_k/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAOTiJyYhUws_cpdZ5RzWvGBnqQbA"%}
+        {% include 'core/cards.html' with titulo="HIIT Benefits <br>Detox Your Body" video_link="https://www.youtube.com/watch?v=aGMAYD19RJg" thumbnail_url="https://i.ytimg.com/vi/aGMAYD19RJg/maxresdefault.jpg" %}
+        {% include 'core/cards.html' with titulo="Quality SLEEP:<br>8 Benefits" video_link="https://www.youtube.com/watch?v=bTEZbwiOCms" thumbnail_url="https://i.ytimg.com/vi/bTEZbwiOCms/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGIgZSg9MA8=&amp;rs=AOn4CLDe4bJCltc9n8077g0C6s0IVa2X9g" %}
+        {% include 'core/cards.html' with titulo="Change Your DIET <br>Extend Your Life" video_link="https://www.youtube.com/watch?v=eZRz7k83W-Y" thumbnail_url="https://i.ytimg.com/vi/eZRz7k83W-Y/maxresdefault.jpg"%}
+        
+        <!-- Add more cards as needed -->
+
+    </div>
+</div>
+    
+{% endblock contenido2 %}

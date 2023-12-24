@@ -1,0 +1,100 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block contenido1 %}
+    
+
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        header {
+            background-color: #555;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        section {
+            max-width: 750px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            text
+        }
+
+
+        p {
+            line-height: 1.6;
+            color: #555;
+            
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em;
+            background-color: #555;
+            color: white;
+        }
+    </style>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    </head>
+
+
+    <body>
+
+        <section>
+            <h1 style="text-align: center;">
+                <img src="{% static '\core\img\about_logo.png' %}" alt="Wellness Haven Title Image" style="width: 250px; height: auto;">
+            </h1><br>
+
+            
+            <figure style="text-align: center;">
+                <img src="{% static 'core/img/suns_me1.png' %}" alt="Your Picture" style="width: 100%; max-width: 450px; border-radius: 10%; margin: 0 auto; display:block;">
+                <figcaption>Juan Gomensoro</figcaption>
+            </figure>
+
+
+            <h3>Acerca de Wellness Haven</h3>
+            <p>Bienvenido a Wellness Haven, tu refugio en línea para el bienestar integral.</p>
+
+            <p>Soy Juan Gomensoro, el creador de este espacio dedicado a la salud y el equilibrio. Me embarqué en el fascinante mundo de la programación y la tecnología. Este es mi proyecto final, desarrollado en Django/Python como parte del Curso Python en Coderhouse.</p>
+            
+            <p>En Wellness Haven, los usuarios pueden registrarse, iniciar sesión y aprovechar una plataforma interactiva. La persistencia y el cultivo constante de habilidades son valores fundamentales para mí, y estos se reflejan en cada aspecto de este sitio. Los usuarios pueden editar sus perfiles, publicar y editar sus propios blogs, contribuyendo así a una comunidad vibrante de aprendizaje.</p>
+            
+            <p>Únete a nosotros en Wellness Haven mientras exploramos juntos el viaje hacia una vida más saludable y equilibrada. ¡Esperamos verte pronto!</p>
+            
+        </section>
+        
+
+
+
+    </body>
+{% endblock contenido1 %}
+
+
+{% block contenido2 %}
+    
+{% endblock contenido2 %}
